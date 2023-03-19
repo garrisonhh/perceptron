@@ -1,6 +1,10 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
-pub fn build(b: *std.build.Builder) void {
+pub fn build(b: *std.build.Builder) !void {
+    const ver = try std.SemanticVersion.parse("0.10.1");
+    std.debug.assert(builtin.zig_version.order(ver) == .eq);
+
     const target = b.standardTargetOptions(.{});
     const mode = b.standardReleaseOptions();
 
